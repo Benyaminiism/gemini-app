@@ -41,15 +41,18 @@ if st.button("پردازش با Gemini"):
 
         with st.spinner("در حال پردازش توسط Gemini..."):
             try:
-                # استفاده از مدل متناسب با آخرین آپدیت کتابخانه google-genai
+                # استفاده از مدل پایدار gemini-2.0-flash
                 response = client.models.generate_content(
-                    model='gemini-2.5-flash',
+                    model='gemini-2.0-flash',
                     contents=prompt,
                 )
                 st.success("پردازش با موفقیت انجام شد:")
                 st.markdown(response.text)
             except Exception as e:
-                if "429" in str(e):
+                err_msg = str(e)
+                if "429" in err_msg:
                     st.warning("⚠️ سهمیه رایگان موقتاً تمام شده است. لطفاً حدود ۱ دقیقه صبر کرده و دوباره امتحان کنید.")
+                elif "404" in err_msg:
+                    st.error("⚠️ مدل یافت نشد. لطفاً کلید API جدید از Google AI Studio دریافت کنید.")
                 else:
                     st.error(f"خطایی رخ داد: {e}")
