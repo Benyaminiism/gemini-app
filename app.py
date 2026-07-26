@@ -39,11 +39,11 @@ if st.button("پردازش با Gemini"):
         
         prompt = prompts[option]
 
-        # دقت در فاصله‌گذاری‌های بلوک with و try/except زیر:
         with st.spinner("در حال پردازش توسط Gemini..."):
             try:
+                # استفاده از مدل متناسب با آخرین آپدیت کتابخانه google-genai
                 response = client.models.generate_content(
-                    model='gemini-1.5-flash',
+                    model='gemini-2.5-flash',
                     contents=prompt,
                 )
                 st.success("پردازش با موفقیت انجام شد:")
