@@ -40,14 +40,13 @@ if st.button("پردازش با Gemini"):
         
         prompt = prompts[option]
 
-        with st.spinner("در حال پردازش توسط Gemini..."):
-            try:
-                # فراخوانی مدل سریع gemini-2.5-flash
-                response = client.models.generate_content(
-                    model='gemini-1.5-flash',
-                    contents=prompt,
-                )
-                st.success("پردازش با موفقیت انجام شد:")
-                st.markdown(response.text)
-            except Exception as e:
-                st.error(f"خطایی رخ داد: {e}")
+       with st.spinner("در حال پردازش توسط Gemini..."):
+    try:
+        response = client.models.generate_content(
+            model='gemini-2.0-flash',
+            contents=prompt,
+        )
+        st.success("پردازش با موفقیت انجام شد:")
+        st.markdown(response.text)
+    except Exception as e:
+        st.error(f"خطایی رخ داد: {e}")
