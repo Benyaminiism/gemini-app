@@ -16,7 +16,7 @@ st.write("متن خود را وارد کنید تا هوش مصنوعی آن ر�
 if api_key:
     client = genai.Client(api_key=api_key)
 else:
-    st.error("لطفاً کلید GEMINI_API_KEY را در فایل .env تنظیم کنید.")
+    st.error("لطفاً کلید GEMINI_API_KEY را تنظیم کنید.")
     st.stop()
 
 # ۴. فرم دریافت ورودی از کاربر
@@ -31,7 +31,6 @@ if st.button("پردازش با Gemini"):
     if not user_input.strip():
         st.warning("لطفاً ابتدا متنی را وارد کنید.")
     else:
-        # ساخت پرامپت مناسب بر اساس انتخاب کاربر
         prompts = {
             "خلاصه‌سازی متن": f"لطفاً متن زیر را به صورت روان و کوتاه خلاصه کن:\n\n{user_input}",
             "اصلاح و بهبود لحن": f"لطفاً لحن متن زیر را حرفه‌ای و بدون غلط نگارشی بازنویسی کن:\n\n{user_input}",
@@ -40,13 +39,13 @@ if st.button("پردازش با Gemini"):
         
         prompt = prompts[option]
 
-       with st.spinner("در حال پردازش توسط Gemini..."):
-    try:
-        response = client.models.generate_content(
-            model='gemini-2.0-flash',
-            contents=prompt,
-        )
-        st.success("پردازش با موفقیت انجام شد:")
-        st.markdown(response.text)
-    except Exception as e:
-        st.error(f"خطایی رخ داد: {e}")
+        with st.spinner("در حال پردازش توسط Gemini..."):
+            try:
+                response = client.models.generate_content(
+                    model='gemini-2.0-flash',
+                    contents=prompt,
+                )
+                st.success("پردازش با موفقیت انجام شد:")
+                st.markdown(response.text)
+            except Exception as e:
+                st.error(f"خطایی رخ داد: {e}")
