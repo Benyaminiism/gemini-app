@@ -44,7 +44,7 @@ if st.button("پردازش با Gemini"):
             try:
                 # فراخوانی مدل سریع gemini-2.5-flash
                 response = client.models.generate_content(
-                    model='gemini-2.5-flash',
+                    model='gemini-1.5-flash',
                     contents=prompt,
                 )
                 st.success("پردازش با موفقیت انجام شد:")
