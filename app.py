@@ -40,12 +40,15 @@ if st.button("پردازش با Gemini"):
         prompt = prompts[option]
 
         with st.spinner("در حال پردازش توسط Gemini..."):
-            try:
-                response = client.models.generate_content(
-                    model='gemini-2.0-flash',
-                    contents=prompt,
-                )
-                st.success("پردازش با موفقیت انجام شد:")
-                st.markdown(response.text)
-            except Exception as e:
-                st.error(f"خطایی رخ داد: {e}")
+    try:
+        response = client.models.generate_content(
+            model='gemini-1.5-flash',
+            contents=prompt,
+        )
+        st.success("پردازش با موفقیت انجام شد:")
+        st.markdown(response.text)
+    except Exception as e:
+        if "429" in str(e):
+            st.warning("⚠️ سهمیه رایگان موقتاً تمام شده است. لطفاً حدود ۱ دقیقه صبر کرده و دوباره امتحان کنید.")
+        else:
+            st.error(f"خطایی رخ داد: {e}")
